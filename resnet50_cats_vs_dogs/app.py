@@ -1,20 +1,30 @@
 import gradio as gr
 import torch
 import torchvision.transforms as transforms
-import torchvision.models as models
 import torch.nn.functional as F
-
+import torchvision
 
 
 # Load the model with the same structure as used in training
 def load_model(checkpoint_path, num_classes):
-    model = models.resnet50(pretrained=False)
+    try:
+        use_mps = torch.backends.mps.is_available()
+    except AttributeError:
+        use_mps = False
+
+    if torch.cuda.is_available():
+        device = "cuda"
+    elif use_mps:
+        device = "mps"
+    else:
+        device = "cpu"
+
+    model = torchvision.models.resnet50(weights=None)
     in_features = model.fc.in_features
     model.fc = torch.nn.Linear(in_features, num_classes)
-    model.load_state_dict(torch.load(checkpoint_path))
+    model.load_state_dict(torch.load(checkpoint_path, map_location=device))
     model.eval()  # Set model to evaluation mode
     return model
-
 
 # Function to load an image and perform necessary transforms
 def process_image(image, image_size):

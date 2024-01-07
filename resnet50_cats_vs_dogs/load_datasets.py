@@ -6,16 +6,22 @@ from torch.utils.data import Dataset
 
 
 class DatasetLoader(Dataset):
-    def __init__(self, csv_file, image_size=(128, 128), mode='train'):
+    def __init__(self, csv_path, image_size=(128, 128), mode='train'):
         """
         Initialize the DatasetLoader with the location of the csv file, the desired image size, and mode.
         It loads the data from the CSV and sets up the appropriate image transformation pipeline based on the mode.
         """
-        self.csv_file = csv_file
+        self.csv_file = csv_path
         self.image_size = image_size
         self.mode = mode  # 'train' or 'test'
         self.data = self.load_data()
-        self.transform = self.set_train_transforms() if mode == 'train' else self.set_test_transforms()
+        if mode == 'train':
+            self.transform = self.set_train_transforms()
+        elif mode == 'test':
+            self.set_test_transforms()
+        else:
+            raise ValueError("`mode` can only be train or test")
+
         self.current_dir = os.path.dirname(os.path.abspath(__file__))
 
     def load_data(self):
