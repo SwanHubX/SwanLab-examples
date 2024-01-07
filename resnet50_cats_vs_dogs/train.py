@@ -43,8 +43,8 @@ def test(model, device, test_loader, epoch):
 if __name__ == "__main__":
     num_epochs = 20
     lr = 1e-4
-    batch_size = 8
-    image_size = 512
+    batch_size = 16
+    image_size = 256
     num_classes = 2
     seed = 2024
 

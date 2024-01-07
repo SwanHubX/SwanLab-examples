@@ -18,7 +18,7 @@ class DatasetLoader(Dataset):
         if mode == 'train':
             self.transform = self.set_train_transforms()
         elif mode == 'test':
-            self.set_test_transforms()
+            self.transform = self.set_test_transforms()
         else:
             raise ValueError("`mode` can only be train or test")
 
