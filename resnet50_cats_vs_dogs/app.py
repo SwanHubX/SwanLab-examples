@@ -6,19 +6,7 @@ import torchvision
 
 
 # Load the model with the same structure as used in training
-def load_model(checkpoint_path, num_classes):
-    try:
-        use_mps = torch.backends.mps.is_available()
-    except AttributeError:
-        use_mps = False
-
-    if torch.cuda.is_available():
-        device = "cuda"
-    elif use_mps:
-        device = "mps"
-    else:
-        device = "cpu"
-
+def load_model(checkpoint_path, num_classes, device="cpu"):
     model = torchvision.models.resnet50(weights=None)
     in_features = model.fc.in_features
     model.fc = torch.nn.Linear(in_features, num_classes)

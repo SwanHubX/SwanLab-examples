@@ -1,7 +1,7 @@
 import torch
+import torchvision
 import torchvision.transforms as transforms
 from PIL import Image
-import torchvision.models as models
 import torch.nn.functional as F
 
 
@@ -18,11 +18,12 @@ def process_image(image_path, image_size):
 
 
 # Load the model with the same structure as used in training
-def load_model(checkpoint_path, num_classes):
-    model = models.resnet50(pretrained=False)
+def load_model(checkpoint_path, num_classes, device="cpu"):
+    model = torchvision.models.resnet50(weights=None)
     in_features = model.fc.in_features
     model.fc = torch.nn.Linear(in_features, num_classes)
-    model.load_state_dict(torch.load(checkpoint_path))
+    model.load_state_dict(torch.load(checkpoint_path, map_location=device))
+    model.eval()  # Set model to evaluation mode
     return model
 
 
@@ -43,7 +44,7 @@ def predict(image_path, model):
 if __name__ == "__main__":
     # User-defined variables
     image_path = 'test_images/test_cat.jpg'  # replace with your image path
-    checkpoint_path = 'checkpoint/lastest_checkpoint.pth'  # replace with your checkpoint path
+    checkpoint_path = 'checkpoint/best_checkpoint.pth'  # replace with your checkpoint path
 
     # Load the model
     num_classes = 2  # as defined in the training script
