@@ -8,9 +8,9 @@
 ## Available example
 - [Hello_World](Hello_World)
 
-- [MNIST](plain_net_mnist)
+- [MNIST](MNIST)
 
-- [Image classification (ResNet) on the cat and dog dataset](Resnet50_cats_vs_dogs)
+- [ResNet50: Cat and dog classification](Resnet50)
 
 - [Word_language_model (RNN/LSTM/GRU/Transformer)](Word_language_model)
 
