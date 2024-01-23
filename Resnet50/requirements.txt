@@ -1,4 +1,4 @@
 gradio==4.14.0
-swanlab>=0.1.4
+swanlab>=0.1.5
 torch>=2.1.2
 torchvision>=0.16.2

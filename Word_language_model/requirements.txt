@@ -1,2 +1,2 @@
 torch
-swanlab>=0.1.4
+swanlab>=0.1.5

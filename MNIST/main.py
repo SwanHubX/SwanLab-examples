@@ -81,11 +81,11 @@ def main():
                         help='For Saving the current Model')
     args = parser.parse_args()
 
-    config = vars(args)
     swanlab.init(
         experiment_name="mnist_example",
         description="A plain neural network basic on MNist",
-        config=config
+        config=args,
+
     )
     use_cuda = not args.no_cuda and torch.cuda.is_available()
     try:

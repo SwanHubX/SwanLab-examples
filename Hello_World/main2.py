@@ -16,6 +16,7 @@ swanlab.init(
         "learning_rate": lr,
         "epochs": epochs,
     },
+    logdir="./logs"
 )
 
 # Simulated machine learning training process
