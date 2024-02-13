@@ -14,6 +14,8 @@
 
 - [Word_language_model (RNN/LSTM/GRU/Transformer)](Word_language_model)
 
+- [UIE-Finetune](UIE)
+  
 - Updating...
 
 
