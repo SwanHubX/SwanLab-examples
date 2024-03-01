@@ -8,6 +8,8 @@
 ## Available example
 - [Hello_World](Hello_World)
 
+- [Logistic_Regression](Logistic_Regression) 
+
 - [MNIST](MNIST)
 
 - [ResNet50: Cat and dog classification](Resnet50)
