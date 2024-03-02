@@ -69,4 +69,35 @@ for iteration in range(1000):
     # 更新参数
     optimizer.step()
     
+    # 清空梯度
+    optimizer.zero_grad()
+    
+    if iteration % 20 == 0:
+
+
+
+        plt.scatter(x0.data.numpy()[:, 0], x0.data.numpy()[:, 1], c='r', label='class 0')
+        plt.scatter(x1.data.numpy()[:, 0], x1.data.numpy()[:, 1], c='b', label='class 1')
+
+        w0, w1 = lr_net.features.weight[0]
+        w0, w1 = float(w0.item()), float(w1.item())
+        plot_b = float(lr_net.features.bias[0].item())
+        plot_x = np.arange(-6, 6, 0.1)
+        plot_y = (-w0 * plot_x - plot_b) / w1
+
+        plt.xlim(-5, 7)
+        plt.ylim(-7, 7)
+        plt.plot(plot_x, plot_y)
+
+        plt.text(-5, 5, 'Loss=%.4f' % loss.data.numpy(), fontdict={'size': 20, 'color': 'red'})
+        plt.title("Iteration: {}\nw0:{:.2f} w1:{:.2f} b: {:.2f} accuracy:{:.2%}".format(iteration, w0, w1, plot_b, acc))
+        plt.legend()
+       
+        swanlab.log({"example": swanlab.Image(plt)})
+        plt.clf() 
+
+
+        if acc > 0.99:
+            break
+    
     
