@@ -2,3 +2,5 @@ torch
 numpy
 matplotlib
 swanlab
+torchview
+graphviz
