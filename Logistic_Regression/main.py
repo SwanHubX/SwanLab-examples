@@ -1,11 +1,16 @@
 import torch
 import torch.nn as nn
-import matplotlib as plt
+import matplotlib.pyplot as plt
 import numpy as np
+import graphviz
+from torchview import draw_graph
+import subprocess
+graphviz.set_jupyter_format('png')
 import swanlab
 torch.manual_seed(10)
 
 # step1.生成数据
+batch_size = 1
 sample_nums = 100
 mean_value = 1.7
 bias = 1
@@ -33,6 +38,19 @@ class LR(nn.Module):
 
 lr_net =LR()                                       # 实例化逻辑回归模型
 
+model_graph = draw_graph(lr_net, graph_name="lr_net",input_size=(batch_size, 2), device="cpu",save_graph=True)
+
+
+def dot_to_png(dot_file_path, output_path):
+    command = f"dot -Tpng {dot_file_path} -o {output_path}"
+    subprocess.run(command, shell=True)
+
+# 示例用法
+dot_file_path = "lr_net.gv"  # DOT文件路径
+output_path = "lr_net.png"  # 输出PNG图像路径
+
+dot_to_png(dot_file_path, output_path)
+
 # step3.选择损失函数
 loss_fn = nn.BCELoss()
 
@@ -45,6 +63,8 @@ optimizer =torch.optim.SGD(lr_net.parameters(),lr=lr,momentum=0.9)
 # step5.实验记录初始化
 swanlab.init(experiment_name="Basic_Logistic",config={'learning_rate': 0.01},
   )
+
+swanlab.log({'modelgraph':swanlab.Image(output_path)})
 
 
 # step6.模型训练
@@ -93,7 +113,7 @@ for iteration in range(1000):
         plt.title("Iteration: {}\nw0:{:.2f} w1:{:.2f} b: {:.2f} accuracy:{:.2%}".format(iteration, w0, w1, plot_b, acc))
         plt.legend()
        
-        swanlab.log({"example": swanlab.Image(plt)})
+        swanlab.log({"test": swanlab.Image(plt)})
         plt.clf() 
 
 
