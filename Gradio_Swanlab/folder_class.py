@@ -65,7 +65,7 @@ class Folders:
             )
             self.model_dir_folder.click(
                 get_folder_path,
-                outputs=self.reg_data_dir,
+                outputs=self.model_dir,
                 show_progress=False,
             )
         with gr.Row():

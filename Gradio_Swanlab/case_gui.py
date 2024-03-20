@@ -67,7 +67,14 @@ with gr.Blocks(css=css) as gui:
             button_stop_training = gr.Button("Stop training")
         
         
-  
+    
+    with gr.Tab("Guides"):
+        if os.path.exists("top_level.md"):
+            with open(
+                os.path.join("Top_level.md"), "r", encoding="utf8"
+            ) as file:
+                guides_top_level = file.read() + "\n"
+        gr.Markdown(guides_top_level)
     pass
     
     
