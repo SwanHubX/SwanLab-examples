@@ -13,10 +13,19 @@ import swanlab
 
 
 
-
-title = "<h1 style='font-size: 40px;'><center>Swanlab_Gui</center></h1>"
-with gr.Blocks() as gui:
-    gr.Markdown(title)
+css = """
+h1 {
+    text-align: center;
+    display:block;
+}
+"""
+title = "Swanlab_Gui"
+with gr.Blocks(css=css) as gui:
+    gr.Markdown("# title")
+    train_data_dir_input=gr.Textbox(),
+    reg_data_dir_input=gr.Textbox(),
+    output_dir_input=gr.Textbox(),
+    logging_dir_input=gr.Textbox(),
     with gr.Row():
         button_run = gr.Button("Start training", variant="primary")
 
