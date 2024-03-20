@@ -32,3 +32,14 @@
     width: 33%;
     flex-grow: 0;
 }
+
+
+
+
+#title {
+    text-align: center;
+    font-size: 10em;
+    display: block;
+    margin: 0 auto;
+}
+
