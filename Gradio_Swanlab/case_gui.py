@@ -27,9 +27,15 @@ h1 {
 if os.path.exists("./style.css"):
     with open(os.path.join("./style.css"), "r", encoding="utf8") as file:
         css += file.read() + "\n"
-title = "Swanlab_Gui"
+if os.path.exists("title.md"):
+            with open(
+                os.path.join("title.md"), "r", encoding="utf8"
+            ) as file:
+                title = file.read() + "\n"
+
+
 with gr.Blocks(css=css) as gui:
-    gr.Markdown(title,elem_id='title')
+    gr.Markdown(title)
     
     
     with gr.Tab("Folders"):
