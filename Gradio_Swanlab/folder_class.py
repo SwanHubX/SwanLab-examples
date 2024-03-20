@@ -45,8 +45,8 @@ class Folders:
 
         with gr.Row():
             self.train_data_dir = gr.Textbox(
-                label='Image folder',
-                placeholder='Folder where the training folders containing the images are located',
+                label='Dataset folder',
+                placeholder='Folder where the training folders containing the dataset are located',
             )
             self.train_data_dir_folder = gr.Button(
                 '📂', elem_id='open_folder_small', visible=(not self.headless)
@@ -56,14 +56,14 @@ class Folders:
                 outputs=self.train_data_dir,
                 show_progress=False,
             )
-            self.reg_data_dir = gr.Textbox(
-                label='Regularisation folder',
-                placeholder='(Optional) Folder where where the regularization folders containing the images are located',
+            self.model_dir = gr.Textbox(
+                label='Model folder',
+                placeholder='(Optional) Folder where  the model folders containing the model are located',
             )
-            self.reg_data_dir_folder = gr.Button(
+            self.model_dir_folder = gr.Button(
                 '📂', elem_id='open_folder_small', visible=(not self.headless)
             )
-            self.reg_data_dir_folder.click(
+            self.model_dir_folder.click(
                 get_folder_path,
                 outputs=self.reg_data_dir,
                 show_progress=False,
@@ -83,7 +83,7 @@ class Folders:
             )
             self.logging_dir = gr.Textbox(
                 label='Logging folder',
-                placeholder='Optional: enable logging and output TensorBoard log to this folder',
+                placeholder='Optional: enable logging and output Swanlab log to this folder',
             )
             self.logging_dir_folder = gr.Button(
                 '📂', elem_id='open_folder_small', visible=(not self.headless)
@@ -110,10 +110,10 @@ class Folders:
             inputs=[self.train_data_dir],
             outputs=[self.train_data_dir],
         )
-        self.reg_data_dir.blur(
+        self.model_dir.blur(
             remove_doublequote,
-            inputs=[self.reg_data_dir],
-            outputs=[self.reg_data_dir],
+            inputs=[self.model_dir],
+            outputs=[self.model_dir],
         )
         self.output_dir.blur(
             remove_doublequote,
