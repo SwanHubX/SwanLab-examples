@@ -1,0 +1,1 @@
+这是一个集成了Swanlab的Gradio训练Gui示例。
