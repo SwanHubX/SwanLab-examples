@@ -4,12 +4,12 @@ from easygui import msgbox
 import subprocess
 import time
 import webbrowser
-from library.custom_logging import setup_logging
 import swanlab
-
+from loguru import logger
 
 # Set up logging
-log = setup_logging()
+
+
 
 swanlab_proc = None
 
@@ -26,7 +26,7 @@ def start_swanlab(headless, logging_dir, wait_time=5):
     swanlab_port = os.environ.get('SWANLAB_PORT', DEFAULT_SWANLAB_PORT)
 
     if not os.listdir(logging_dir):
-        log.info('Error: log folder is empty')
+        logger.info('Error: log folder is empty')
         msgbox(msg='Error: log folder is empty')
         return
     
@@ -41,19 +41,19 @@ def start_swanlab(headless, logging_dir, wait_time=5):
         str(swanlab_port),
     ]
 
-    log.info(run_cmd)
+    logger.info(run_cmd)
     if swanlab_proc is not None:
-        log.info(
-            'Tensorboard is already running. Terminating existing process before starting new one...'
+        logger.info(
+            'Swanlab is already running. Terminating existing process before starting new one...'
         )
         stop_swanlab()
 
     # Start background process
-    log.info('Starting Swanlab on port {}'.format(swanlab_port))
+    logger.info('Starting Swanlab on port {}'.format(swanlab_port))
     try:
         swanlab_proc = subprocess.Popen(run_cmd)
     except Exception as e:
-        log.error('Failed to start Swanlab:', e)
+        logger.error('Failed to start Swanlab:', e)
         return
 
     if not headless_bool:
@@ -62,22 +62,22 @@ def start_swanlab(headless, logging_dir, wait_time=5):
 
         # Open the Swanlab URL in the default browser
         swanlab_url = f'http://localhost:{swanlab_port}'
-        log.info(f'Opening Swanlab URL in browser: {swanlab_url}')
+        logger.info(f'Opening Swanlab URL in browser: {swanlab_url}')
         webbrowser.open(swanlab_url)
 
 
 def stop_swanlab():
     global swanlab_proc
     if swanlab_proc is not None:
-        log.info('Stopping swanlab process...')
+        logger.info('Stopping swanlab process...')
         try:
             swanlab.terminate()
             swanlab_proc = None
-            log.info('...process stopped')
+            logger.info('...process stopped')
         except Exception as e:
-            log.error('Failed to stop Swanlab:', e)
+            logger.error('Failed to stop Swanlab:', e)
     else:
-        log.info('Swanlab is not running...')
+        logger.info('Swanlab is not running...')
 
 
 def gradio_swanlab():
