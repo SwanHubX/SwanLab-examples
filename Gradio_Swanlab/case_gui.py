@@ -22,10 +22,10 @@ h1 {
 title = "Swanlab_Gui"
 with gr.Blocks(css=css) as gui:
     gr.Markdown("# title")
-    train_data_dir_input=gr.Textbox(),
-    reg_data_dir_input=gr.Textbox(),
-    output_dir_input=gr.Textbox(),
-    logging_dir_input=gr.Textbox(),
+    with gr.Row():
+        train_data_dir_input=gr.Textbox(label="train_data_dir")
+        output_dir_input=gr.Textbox(label=" output_dir")
+        logging_dir_input=gr.Textbox(label="logging_dir")
     with gr.Row():
         button_run = gr.Button("Start training", variant="primary")
 
